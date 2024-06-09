@@ -1,0 +1,73 @@
+[gd_scene load_steps=2 format=3 uid="uid://38avqvs3vn8v"]
+
+[ext_resource type="Script" path="res://addons/csg_shortcut/csg_item_bar.gd" id="1_5pr81"]
+
+[node name="CsgItemBar" type="Control"]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = -1200.0
+grow_horizontal = 2
+script = ExtResource("1_5pr81")
+
+[node name="HBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 206.0
+grow_horizontal = 2
+
+[node name="OptionButton" type="OptionButton" parent="HBoxContainer"]
+visible = false
+layout_mode = 2
+clip_text = true
+item_count = 3
+selected = 0
+popup/item_0/text = "CSG"
+popup/item_0/id = 0
+popup/item_1/text = ""
+popup/item_1/id = 1
+popup/item_1/separator = true
+popup/item_2/text = "New.."
+popup/item_2/id = 2
+
+[node name="CSG" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Box" type="Button" parent="HBoxContainer/CSG"]
+layout_mode = 2
+text = "Box"
+
+[node name="Cylinder" type="Button" parent="HBoxContainer/CSG"]
+layout_mode = 2
+text = "Cyliner
+"
+
+[node name="Mesh" type="Button" parent="HBoxContainer/CSG"]
+layout_mode = 2
+text = "Mesh"
+
+[node name="Polygon" type="Button" parent="HBoxContainer/CSG"]
+layout_mode = 2
+text = "Polygon"
+
+[node name="Sphere" type="Button" parent="HBoxContainer/CSG"]
+layout_mode = 2
+text = "Sphere
+"
+
+[node name="Torus" type="Button" parent="HBoxContainer/CSG"]
+layout_mode = 2
+text = "Torus"
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Add"
+
+[connection signal="pressed" from="HBoxContainer/CSG/Box" to="." method="_on_box_pressed"]
+[connection signal="pressed" from="HBoxContainer/CSG/Cylinder" to="." method="_on_cylinder_pressed"]
+[connection signal="pressed" from="HBoxContainer/CSG/Mesh" to="." method="_on_mesh_pressed"]
+[connection signal="pressed" from="HBoxContainer/CSG/Polygon" to="." method="_on_polygon_pressed"]
+[connection signal="pressed" from="HBoxContainer/CSG/Sphere" to="." method="_on_sphere_pressed"]
+[connection signal="pressed" from="HBoxContainer/CSG/Torus" to="." method="_on_torus_pressed"]
