@@ -2,15 +2,24 @@
 extends EditorPlugin
 
 var dock
+var operation: CSGShape3D.Operation = CSGShape3D.OPERATION_INTERSECTION
+
 
 func _enter_tree():
-	var dockScene = preload("res://addons/csg_shortcut/csg_item_bar.tscn")
+	var dockScene = preload("res://addons/csg_toolkit/csg_item_bar.tscn")
 	dock = dockScene.instantiate()
 	dock.pressed_csg.connect(create_csg)
+	dock.operation_changed.connect(set_operation)
 	EditorInterface.get_selection().selection_changed.connect(_on_selection_changed)
 	add_control_to_container(EditorPlugin.CONTAINER_SPATIAL_EDITOR_SIDE_LEFT, dock)
 	_on_selection_changed()
-	print("Enabled CSG Item Bar")
+
+func set_operation(val: int):
+	match val:
+		0: operation = CSGShape3D.OPERATION_UNION
+		1: operation = CSGShape3D.OPERATION_INTERSECTION
+		2: operation = CSGShape3D.OPERATION_SUBTRACTION
+		_: operation = CSGShape3D.OPERATION_UNION
 
 func create_csg(type: Variant):
 	var selected_nodes = get_editor_interface().get_selection().get_selected_nodes()
@@ -32,18 +41,28 @@ func create_csg(type: Variant):
 			csg = CSGPolygon3D.new()
 		CSGTorus3D:
 			csg = CSGTorus3D.new()
-	selected_node.add_child(csg, true)
-	csg.owner = selected_node.owner
+	
+	csg.operation = operation
+	if Input.is_key_pressed(KEY_SHIFT):
+		# as child
+		selected_node.add_child(csg, true)
+		csg.owner = selected_node.owner
+		csg.global_position = selected_node.global_position
+	else:
+		# as sibling
+		selected_node.get_parent().add_child(csg, true)
+		csg.owner = selected_node.get_parent().owner
+		csg.global_position = selected_node.get_parent().global_position
 	EditorInterface.get_selection().clear()
 	EditorInterface.get_selection().add_node(csg)
 
 func _exit_tree():
 	dock.pressed_csg.disconnect(create_csg)
+	dock.operation_changed.disconnect(set_operation)
 	EditorInterface.get_selection().selection_changed.disconnect(_on_selection_changed)
 	
 	remove_control_from_container(EditorPlugin.CONTAINER_SPATIAL_EDITOR_SIDE_LEFT, dock)
 	dock.free()
-	print("Disabled CSG Item Bar")
 
 func _on_selection_changed():
 	# Get the current selected nodes

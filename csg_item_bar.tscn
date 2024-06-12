@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://38avqvs3vn8v"]
+[gd_scene load_steps=3 format=3 uid="uid://38avqvs3vn8v"]
 
-[ext_resource type="Script" path="res://addons/csg_shortcut/csg_item_bar.gd" id="1_5pr81"]
+[ext_resource type="Script" path="res://addons/csg_toolkit/csg_item_bar.gd" id="1_5pr81"]
+[ext_resource type="ButtonGroup" uid="uid://wxtkg1wlxka8" path="res://addons/csg_toolkit/operation_group.tres" id="2_rvn4d"]
 
 [node name="CsgItemBar" type="Control"]
 custom_minimum_size = Vector2(80, 0)
@@ -17,20 +18,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 206.0
 grow_horizontal = 2
-
-[node name="OptionButton" type="OptionButton" parent="HBoxContainer"]
-visible = false
-layout_mode = 2
-clip_text = true
-item_count = 3
-selected = 0
-popup/item_0/text = "CSG"
-popup/item_0/id = 0
-popup/item_1/text = ""
-popup/item_1/id = 1
-popup/item_1/separator = true
-popup/item_2/text = "New.."
-popup/item_2/id = 2
+theme_override_constants/separation = 8
 
 [node name="CSG" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -61,10 +49,34 @@ text = "Sphere
 layout_mode = 2
 text = "Torus"
 
-[node name="Button" type="Button" parent="HBoxContainer"]
-visible = false
+[node name="Operation" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
-text = "Add"
+
+[node name="OpLabel" type="Label" parent="HBoxContainer/Operation"]
+layout_mode = 2
+text = "Operation"
+
+[node name="Union" type="Button" parent="HBoxContainer/Operation"]
+layout_mode = 2
+tooltip_text = "Union"
+toggle_mode = true
+button_group = ExtResource("2_rvn4d")
+text = "+"
+
+[node name="Intersection" type="Button" parent="HBoxContainer/Operation"]
+layout_mode = 2
+tooltip_text = "Intersection"
+toggle_mode = true
+button_group = ExtResource("2_rvn4d")
+text = "/
+"
+
+[node name="Subtraction" type="Button" parent="HBoxContainer/Operation"]
+layout_mode = 2
+tooltip_text = "Subtraction"
+toggle_mode = true
+button_group = ExtResource("2_rvn4d")
+text = "-"
 
 [connection signal="pressed" from="HBoxContainer/CSG/Box" to="." method="_on_box_pressed"]
 [connection signal="pressed" from="HBoxContainer/CSG/Cylinder" to="." method="_on_cylinder_pressed"]
@@ -72,3 +84,6 @@ text = "Add"
 [connection signal="pressed" from="HBoxContainer/CSG/Polygon" to="." method="_on_polygon_pressed"]
 [connection signal="pressed" from="HBoxContainer/CSG/Sphere" to="." method="_on_sphere_pressed"]
 [connection signal="pressed" from="HBoxContainer/CSG/Torus" to="." method="_on_torus_pressed"]
+[connection signal="pressed" from="HBoxContainer/Operation/Union" to="." method="_on_operation_pressed" binds= [0]]
+[connection signal="pressed" from="HBoxContainer/Operation/Intersection" to="." method="_on_operation_pressed" binds= [1]]
+[connection signal="pressed" from="HBoxContainer/Operation/Subtraction" to="." method="_on_operation_pressed" binds= [2]]
