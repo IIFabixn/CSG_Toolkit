@@ -11,6 +11,8 @@ A godot plugin that will hopefully help you build quickler blockouts.
 * <b>Operation Preset:</b> Automatically preselects the appropriate operation.
 * <b>Shortcut Integration:</b> Shortcuts are available when the selcted node is a CSG node.
 
+<img src="./demo-image.png">
+
 <br />
 <br />
 Made with coffee and ♥
