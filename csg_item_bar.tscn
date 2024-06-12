@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://addons/csg_shortcut/csg_item_bar.gd" id="1_5pr81"]
 
 [node name="CsgItemBar" type="Control"]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0
