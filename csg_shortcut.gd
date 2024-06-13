@@ -51,7 +51,7 @@ func create_csg(type: Variant):
 	else:
 		# as sibling
 		selected_node.get_parent().add_child(csg, true)
-		csg.owner = selected_node.get_parent().owner
+		csg.owner = selected_node.get_parent()
 		csg.global_position = selected_node.get_parent().global_position
 	EditorInterface.get_selection().clear()
 	EditorInterface.get_selection().add_node(csg)
