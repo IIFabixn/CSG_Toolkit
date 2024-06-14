@@ -13,7 +13,7 @@ A godot plugin that will hopefully help you build quickler blockouts.
 
 ## Planned Features
 * <b>Material Picker:</b> Easily select and apply materials to CSG nodes.
-* <b>Icon-Based Interface:</b> Replace text with intuitive icons for a cleaner and more user-friendly interface.
+* <b>Additional Shapes:</b> Introducing new shapes to expand your design possibilities and enhance your creative flexibility.
 
 <br />
 <img src="res/demo-image.png">
