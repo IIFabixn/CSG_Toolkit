@@ -19,13 +19,13 @@ func save_config():
 	var config = ConfigFile.new()
 	config.set_value(CSG_TOOLKIT, DEFAULT_BEHAVIOR, default_behavior)
 	config.set_value(CSG_TOOLKIT, ACTION_KEY, action_key)
-	config.save("res://addons/CSG_Toolkit/csg_tk_config.cfg")
+	config.save("res://addons/csg_toolkit/csg_toolkit_config.cfg")
 	print("CsgToolkit: Saved Config")
 	config_saved.emit()
 
 func load_config():
 	var config = ConfigFile.new()
-	if config.load("res://addons/CSG_Toolkit/csg_tk_config.cfg") == OK:
+	if config.load("res://addons/CSG_Toolkit/csg_toolkit_config.cfg") == OK:
 		default_behavior = config.get_value(CSG_TOOLKIT, DEFAULT_BEHAVIOR, default_behavior)
 		action_key = config.get_value(CSG_TOOLKIT, ACTION_KEY, action_key)
 	else:

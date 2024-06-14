@@ -11,10 +11,10 @@ const AUTOLOAD_NAME = "CsgToolkitAutoload"
 
 func _enter_tree():
 	# Config
-	add_autoload_singleton(AUTOLOAD_NAME, "res://addons/csg_toolkit/scripts/csg_tk_config.gd")
+	add_autoload_singleton(AUTOLOAD_NAME, "res://addons/csg_toolkit/scripts/csg_toolkit_config.gd")
 
 	# Scene
-	var dockScene = preload("res://addons/csg_toolkit/scenes/csg_item_bar.tscn")
+	var dockScene = preload("res://addons/csg_toolkit/scenes/csg_toolkit_bar.tscn")
 	dock = dockScene.instantiate()
 	dock.pressed_csg.connect(create_csg)
 	dock.operation_changed.connect(set_operation)

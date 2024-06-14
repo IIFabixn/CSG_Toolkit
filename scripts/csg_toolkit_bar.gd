@@ -27,7 +27,7 @@ func _on_operation_pressed(val):
 	self.operation_changed.emit(val)
 
 func _on_config_pressed():
-	var config_view_scene = preload("res://addons/csg_toolkit/scenes/config_view.tscn")
+	var config_view_scene = preload("res://addons/csg_toolkit/scenes/config_window.tscn")
 	var config_view = config_view_scene.instantiate()
 	config_view.close_requested.connect(func ():
 		get_tree().root.remove_child(config_view)
