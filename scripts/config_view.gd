@@ -6,7 +6,7 @@ var config: CsgTkConfig
 @onready var default_behavior_option: OptionButton = $MarginContainer/VBoxContainer/HBoxContainer/OptionButton
 signal key_press(key: InputEventKey)
 func _enter_tree():
-	config = get_node("/root/%s" % CsgToolkit.AUTOLOAD_NAME)
+	config = get_tree().root.get_node(CsgToolkit.AUTOLOAD_NAME) as CsgTkConfig
 func _ready():
 	default_behavior_option.select(config.default_behavior)
 	action_key_button.text = OS.get_keycode_string(config.action_key)

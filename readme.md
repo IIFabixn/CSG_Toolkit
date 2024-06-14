@@ -1,5 +1,5 @@
 <center>
-<img src="icon.png" width="128" />
+<img src="res/icon.png" width="128" />
 </center>
 
 # CSG Toolkit - Enhance Your Blockout Speed
@@ -16,7 +16,7 @@ A godot plugin that will hopefully help you build quickler blockouts.
 * <b>Icon-Based Interface:</b> Replace text with intuitive icons for a cleaner and more user-friendly interface.
 
 <br />
-<img src="./demo-image.png">
+<img src="res/demo-image.png">
 
 <br />
 <br />

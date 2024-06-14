@@ -10,7 +10,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/csg_toolkit/image.png"
+source_file="res://addons/csg_toolkit/res/image.png"
 dest_files=["res://.godot/imported/image.png-e18db3df6f24d50b719c17a226c337bd.ctex"]
 
 [params]

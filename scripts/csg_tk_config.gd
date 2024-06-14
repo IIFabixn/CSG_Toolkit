@@ -12,7 +12,7 @@ var action_key: Key = KEY_SHIFT
 
 signal config_saved()
 
-func _ready():
+func _enter_tree():
 	load_config()
 	
 func save_config():
@@ -20,7 +20,7 @@ func save_config():
 	config.set_value(CSG_TOOLKIT, DEFAULT_BEHAVIOR, default_behavior)
 	config.set_value(CSG_TOOLKIT, ACTION_KEY, action_key)
 	config.save("res://addons/CSG_Toolkit/csg_tk_config.cfg")
-	print("Saved CSG Toolkit Config")
+	print("CsgToolkit: Saved Config")
 	config_saved.emit()
 
 func load_config():
@@ -30,7 +30,7 @@ func load_config():
 		action_key = config.get_value(CSG_TOOLKIT, ACTION_KEY, action_key)
 	else:
 		save_config()
-	print("Loaded CSG Toolkit Config")
+	print("CsgToolkit: Loaded Config")
 	
 
 enum CSGBehavior { SIBLING, CHILD }

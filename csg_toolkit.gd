@@ -1,7 +1,9 @@
 @tool
 extends EditorPlugin
 class_name  CsgToolkit
-var config: CsgTkConfig
+var config: CsgTkConfig:
+	get:
+		return get_tree().root.get_node_or_null(AUTOLOAD_NAME) as CsgTkConfig
 var dock
 var operation: CSGShape3D.Operation = CSGShape3D.OPERATION_UNION
 
@@ -9,10 +11,10 @@ const AUTOLOAD_NAME = "CsgToolkitAutoload"
 
 func _enter_tree():
 	# Config
-	add_autoload_singleton(AUTOLOAD_NAME, "res://addons/csg_toolkit/csg_tk_config.gd")
-	config = get_node("/root/%s" % AUTOLOAD_NAME)
+	add_autoload_singleton(AUTOLOAD_NAME, "res://addons/csg_toolkit/scripts/csg_tk_config.gd")
+
 	# Scene
-	var dockScene = preload("res://addons/csg_toolkit/csg_item_bar.tscn")
+	var dockScene = preload("res://addons/csg_toolkit/scenes/csg_item_bar.tscn")
 	dock = dockScene.instantiate()
 	dock.pressed_csg.connect(create_csg)
 	dock.operation_changed.connect(set_operation)
@@ -53,6 +55,7 @@ func create_csg(type: Variant):
 	if (selected_node.get_owner() == null):
 		print("Selected Node has no owner")
 		return
+
 	if not Input.is_key_pressed(config.action_key):
 		if config.default_behavior == CsgTkConfig.CSGBehavior.SIBLING:
 			_add_as_sibling(selected_node, csg)
