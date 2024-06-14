@@ -1,16 +1,17 @@
 @tool
 extends EditorPlugin
-
-var config
+class_name  CsgToolkit
+var config: CsgTkConfig
 var dock
-var operation: CSGShape3D.Operation = CSGShape3D.OPERATION_INTERSECTION
+var operation: CSGShape3D.Operation = CSGShape3D.OPERATION_UNION
 
+const AUTOLOAD_NAME = "CsgToolkitAutoload"
 
 func _enter_tree():
-	# Load Config
-	config = preload("res://addons/csg_toolkit/csg_tk_config.cfg")
-	config.load_config()
-	#Load Scene
+	# Config
+	add_autoload_singleton(AUTOLOAD_NAME, "res://addons/csg_toolkit/csg_tk_config.gd")
+	config = get_node("/root/%s" % AUTOLOAD_NAME)
+	# Scene
 	var dockScene = preload("res://addons/csg_toolkit/csg_item_bar.tscn")
 	dock = dockScene.instantiate()
 	dock.pressed_csg.connect(create_csg)
@@ -48,21 +49,32 @@ func create_csg(type: Variant):
 			csg = CSGTorus3D.new()
 	
 	csg.operation = operation
-	if config.default_behavior == CsgTkConfig.CSGBehavior.CHILD or Input.is_key_pressed(config.action_key):
-		_add_as_child(selected_node, csg)
+	
+	if (selected_node.get_owner() == null):
+		print("Selected Node has no owner")
+		return
+	if not Input.is_key_pressed(config.action_key):
+		if config.default_behavior == CsgTkConfig.CSGBehavior.SIBLING:
+			_add_as_sibling(selected_node, csg)
+		elif config.default_behavior == CsgTkConfig.CSGBehavior.CHILD:
+			_add_as_child(selected_node, csg)
 	else:
-		_add_as_sibling(selected_node, csg)
+		if config.default_behavior == CsgTkConfig.CSGBehavior.SIBLING:
+			_add_as_child(selected_node, csg)
+		elif config.default_behavior == CsgTkConfig.CSGBehavior.CHILD:
+			_add_as_sibling(selected_node, csg)
 
 	EditorInterface.get_selection().clear()
 	EditorInterface.get_selection().add_node(csg)
 
 func _add_as_child(selected_node: CSGShape3D, csg: CSGShape3D):
 	selected_node.add_child(csg, true)
-	csg.owner = selected_node.owner
+	csg.owner = selected_node.get_owner()
 	csg.global_position = selected_node.global_position
+	
 func _add_as_sibling(selected_node: CSGShape3D, csg: CSGShape3D):
 	selected_node.get_parent().add_child(csg, true)
-	csg.owner = selected_node.get_parent()
+	csg.owner = selected_node.get_owner()
 	csg.global_position = selected_node.get_parent().global_position
 
 func _exit_tree():
@@ -70,6 +82,7 @@ func _exit_tree():
 	dock.operation_changed.disconnect(set_operation)
 	EditorInterface.get_selection().selection_changed.disconnect(_on_selection_changed)
 	
+	remove_autoload_singleton(AUTOLOAD_NAME)
 	remove_control_from_container(EditorPlugin.CONTAINER_SPATIAL_EDITOR_SIDE_LEFT, dock)
 	dock.free()
 

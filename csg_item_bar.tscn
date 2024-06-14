@@ -1,69 +1,80 @@
-[gd_scene load_steps=3 format=3 uid="uid://38avqvs3vn8v"]
+[gd_scene load_steps=4 format=3 uid="uid://38avqvs3vn8v"]
 
 [ext_resource type="Script" path="res://addons/csg_toolkit/csg_item_bar.gd" id="1_5pr81"]
 [ext_resource type="ButtonGroup" uid="uid://wxtkg1wlxka8" path="res://addons/csg_toolkit/operation_group.tres" id="2_rvn4d"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_73vj1"]
+
 [node name="CsgItemBar" type="Control"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 3
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
-offset_right = -1200.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_5pr81")
 
-[node name="HBoxContainer" type="VBoxContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
-offset_bottom = 206.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="CSG" type="VBoxContainer" parent="HBoxContainer"]
+[node name="CSG" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="Box" type="Button" parent="HBoxContainer/CSG"]
+[node name="Box" type="Button" parent="MarginContainer/HBoxContainer/CSG"]
 layout_mode = 2
 text = "Box"
 
-[node name="Cylinder" type="Button" parent="HBoxContainer/CSG"]
+[node name="Cylinder" type="Button" parent="MarginContainer/HBoxContainer/CSG"]
 layout_mode = 2
 text = "Cyliner
 "
 
-[node name="Mesh" type="Button" parent="HBoxContainer/CSG"]
+[node name="Mesh" type="Button" parent="MarginContainer/HBoxContainer/CSG"]
 layout_mode = 2
 text = "Mesh"
 
-[node name="Polygon" type="Button" parent="HBoxContainer/CSG"]
+[node name="Polygon" type="Button" parent="MarginContainer/HBoxContainer/CSG"]
 layout_mode = 2
 text = "Polygon"
 
-[node name="Sphere" type="Button" parent="HBoxContainer/CSG"]
+[node name="Sphere" type="Button" parent="MarginContainer/HBoxContainer/CSG"]
 layout_mode = 2
 text = "Sphere
 "
 
-[node name="Torus" type="Button" parent="HBoxContainer/CSG"]
+[node name="Torus" type="Button" parent="MarginContainer/HBoxContainer/CSG"]
 layout_mode = 2
 text = "Torus"
 
-[node name="Operation" type="VBoxContainer" parent="HBoxContainer"]
+[node name="Operation" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="OpLabel" type="Label" parent="HBoxContainer/Operation"]
+[node name="OpLabel" type="Label" parent="MarginContainer/HBoxContainer/Operation"]
 layout_mode = 2
 text = "Operation"
 
-[node name="Union" type="Button" parent="HBoxContainer/Operation"]
+[node name="Union" type="Button" parent="MarginContainer/HBoxContainer/Operation"]
 layout_mode = 2
 tooltip_text = "Union"
 toggle_mode = true
 button_group = ExtResource("2_rvn4d")
 text = "+"
 
-[node name="Intersection" type="Button" parent="HBoxContainer/Operation"]
+[node name="Intersection" type="Button" parent="MarginContainer/HBoxContainer/Operation"]
 layout_mode = 2
 tooltip_text = "Intersection"
 toggle_mode = true
@@ -71,19 +82,29 @@ button_group = ExtResource("2_rvn4d")
 text = "/
 "
 
-[node name="Subtraction" type="Button" parent="HBoxContainer/Operation"]
+[node name="Subtraction" type="Button" parent="MarginContainer/HBoxContainer/Operation"]
 layout_mode = 2
 tooltip_text = "Subtraction"
 toggle_mode = true
 button_group = ExtResource("2_rvn4d")
 text = "-"
 
-[connection signal="pressed" from="HBoxContainer/CSG/Box" to="." method="_on_box_pressed"]
-[connection signal="pressed" from="HBoxContainer/CSG/Cylinder" to="." method="_on_cylinder_pressed"]
-[connection signal="pressed" from="HBoxContainer/CSG/Mesh" to="." method="_on_mesh_pressed"]
-[connection signal="pressed" from="HBoxContainer/CSG/Polygon" to="." method="_on_polygon_pressed"]
-[connection signal="pressed" from="HBoxContainer/CSG/Sphere" to="." method="_on_sphere_pressed"]
-[connection signal="pressed" from="HBoxContainer/CSG/Torus" to="." method="_on_torus_pressed"]
-[connection signal="pressed" from="HBoxContainer/Operation/Union" to="." method="_on_operation_pressed" binds= [0]]
-[connection signal="pressed" from="HBoxContainer/Operation/Intersection" to="." method="_on_operation_pressed" binds= [1]]
-[connection signal="pressed" from="HBoxContainer/Operation/Subtraction" to="." method="_on_operation_pressed" binds= [2]]
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_73vj1")
+
+[node name="Config" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Config"
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/CSG/Box" to="." method="_on_box_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/CSG/Cylinder" to="." method="_on_cylinder_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/CSG/Mesh" to="." method="_on_mesh_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/CSG/Polygon" to="." method="_on_polygon_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/CSG/Sphere" to="." method="_on_sphere_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/CSG/Torus" to="." method="_on_torus_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Operation/Union" to="." method="_on_operation_pressed" binds= [0]]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Operation/Intersection" to="." method="_on_operation_pressed" binds= [1]]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Operation/Subtraction" to="." method="_on_operation_pressed" binds= [2]]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Config" to="." method="_on_config_pressed"]
