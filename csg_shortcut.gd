@@ -1,11 +1,16 @@
 @tool
 extends EditorPlugin
 
+var config
 var dock
 var operation: CSGShape3D.Operation = CSGShape3D.OPERATION_INTERSECTION
 
 
 func _enter_tree():
+	# Load Config
+	config = preload("res://addons/csg_toolkit/csg_tk_config.cfg")
+	config.load_config()
+	#Load Scene
 	var dockScene = preload("res://addons/csg_toolkit/csg_item_bar.tscn")
 	dock = dockScene.instantiate()
 	dock.pressed_csg.connect(create_csg)
@@ -43,18 +48,22 @@ func create_csg(type: Variant):
 			csg = CSGTorus3D.new()
 	
 	csg.operation = operation
-	if Input.is_key_pressed(KEY_SHIFT):
-		# as child
-		selected_node.add_child(csg, true)
-		csg.owner = selected_node.owner
-		csg.global_position = selected_node.global_position
+	if config.default_behavior == CsgTkConfig.CSGBehavior.CHILD or Input.is_key_pressed(config.action_key):
+		_add_as_child(selected_node, csg)
 	else:
-		# as sibling
-		selected_node.get_parent().add_child(csg, true)
-		csg.owner = selected_node.get_parent()
-		csg.global_position = selected_node.get_parent().global_position
+		_add_as_sibling(selected_node, csg)
+
 	EditorInterface.get_selection().clear()
 	EditorInterface.get_selection().add_node(csg)
+
+func _add_as_child(selected_node: CSGShape3D, csg: CSGShape3D):
+	selected_node.add_child(csg, true)
+	csg.owner = selected_node.owner
+	csg.global_position = selected_node.global_position
+func _add_as_sibling(selected_node: CSGShape3D, csg: CSGShape3D):
+	selected_node.get_parent().add_child(csg, true)
+	csg.owner = selected_node.get_parent()
+	csg.global_position = selected_node.get_parent().global_position
 
 func _exit_tree():
 	dock.pressed_csg.disconnect(create_csg)
