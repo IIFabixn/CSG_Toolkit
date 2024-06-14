@@ -56,16 +56,16 @@ func create_csg(type: Variant):
 		print("Selected Node has no owner")
 		return
 
-	if not Input.is_key_pressed(config.action_key):
+	if Input.is_key_pressed(config.action_key):
 		if config.default_behavior == CsgTkConfig.CSGBehavior.SIBLING:
-			_add_as_sibling(selected_node, csg)
-		elif config.default_behavior == CsgTkConfig.CSGBehavior.CHILD:
 			_add_as_child(selected_node, csg)
+		elif config.default_behavior == CsgTkConfig.CSGBehavior.CHILD:
+			_add_as_sibling(selected_node, csg)
 	else:
 		if config.default_behavior == CsgTkConfig.CSGBehavior.SIBLING:
-			_add_as_child(selected_node, csg)
-		elif config.default_behavior == CsgTkConfig.CSGBehavior.CHILD:
 			_add_as_sibling(selected_node, csg)
+		elif config.default_behavior == CsgTkConfig.CSGBehavior.CHILD:
+			_add_as_child(selected_node, csg)
 
 	EditorInterface.get_selection().clear()
 	EditorInterface.get_selection().add_node(csg)

@@ -17,6 +17,7 @@ func _enter_tree():
 	
 func save_config():
 	var config = ConfigFile.new()
+	config.load("res://addons/CSG_Toolkit/csg_toolkit_config.cfg")
 	config.set_value(CSG_TOOLKIT, DEFAULT_BEHAVIOR, default_behavior)
 	config.set_value(CSG_TOOLKIT, ACTION_KEY, action_key)
 	config.save("res://addons/csg_toolkit/csg_toolkit_config.cfg")
