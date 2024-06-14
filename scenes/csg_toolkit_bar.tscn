@@ -12,9 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://snbhkpq6sh4j" path="res://addons/csg_toolkit/res/icons/subtraction.svg" id="10_tb1b3"]
 [ext_resource type="Texture2D" uid="uid://clgooji83dl4u" path="res://addons/csg_toolkit/res/icons/config.svg" id="11_5p6ju"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ixko7"]
-
 [sub_resource type="ButtonGroup" id="ButtonGroup_2ipgb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ixko7"]
 
 [node name="CsgToolkitBar" type="Control"]
 custom_minimum_size = Vector2(42, 0)
@@ -42,7 +42,7 @@ theme_override_constants/margin_bottom = 8
 [node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_constants/separation = 8
+theme_override_constants/separation = 16
 
 [node name="CSG" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
@@ -90,11 +90,6 @@ tooltip_text = "Torus"
 theme_override_constants/icon_max_width = 24
 icon = ExtResource("7_t1wb8")
 
-[node name="HSeparator2" type="HSeparator" parent="MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(0, 16)
-layout_mode = 2
-theme_override_styles/separator = SubResource("StyleBoxEmpty_ixko7")
-
 [node name="Operation" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
@@ -130,6 +125,9 @@ theme_override_constants/icon_max_width = 24
 toggle_mode = true
 button_group = SubResource("ButtonGroup_2ipgb")
 icon = ExtResource("10_tb1b3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
