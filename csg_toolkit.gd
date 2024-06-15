@@ -1,6 +1,6 @@
 @tool
 extends EditorPlugin
-class_name  CsgToolkit
+class_name CsgToolkit
 var config: CsgTkConfig:
 	get:
 		return get_tree().root.get_node_or_null(AUTOLOAD_NAME) as CsgTkConfig
@@ -78,16 +78,7 @@ func _add_as_child(selected_node: CSGShape3D, csg: CSGShape3D):
 func _add_as_sibling(selected_node: CSGShape3D, csg: CSGShape3D):
 	selected_node.get_parent().add_child(csg, true)
 	csg.owner = selected_node.get_owner()
-	csg.global_position = selected_node.get_parent().global_position
-
-func _exit_tree():
-	dock.pressed_csg.disconnect(create_csg)
-	dock.operation_changed.disconnect(set_operation)
-	EditorInterface.get_selection().selection_changed.disconnect(_on_selection_changed)
-	
-	remove_autoload_singleton(AUTOLOAD_NAME)
-	remove_control_from_container(EditorPlugin.CONTAINER_SPATIAL_EDITOR_SIDE_LEFT, dock)
-	dock.free()
+	csg.global_position = selected_node.global_position
 
 func _on_selection_changed():
 	# Get the current selected nodes
@@ -99,3 +90,12 @@ func _on_selection_changed():
 	else:
 		# Hide the plugin UI if the selected node is not a CSG node
 		dock.hide()
+
+func _exit_tree():
+	dock.pressed_csg.disconnect(create_csg)
+	dock.operation_changed.disconnect(set_operation)
+	EditorInterface.get_selection().selection_changed.disconnect(_on_selection_changed)
+	
+	remove_autoload_singleton(AUTOLOAD_NAME)
+	remove_control_from_container(EditorPlugin.CONTAINER_SPATIAL_EDITOR_SIDE_LEFT, dock)
+	dock.free()

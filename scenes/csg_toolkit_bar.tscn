@@ -146,4 +146,7 @@ icon = ExtResource("11_5p6ju")
 [connection signal="pressed" from="MarginContainer/HBoxContainer/CSG/Polygon" to="." method="_on_polygon_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/CSG/Sphere" to="." method="_on_sphere_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/CSG/Torus" to="." method="_on_torus_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Operation/Union" to="." method="_on_operation_pressed" binds= [0]]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Operation/Intersection" to="." method="_on_operation_pressed" binds= [1]]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Operation/Subtraction" to="." method="_on_operation_pressed" binds= [2]]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Config" to="." method="_on_config_pressed"]
