@@ -6,11 +6,8 @@ signal operation_changed(operation: int)
 signal material_selected(mat: BaseMaterial3D)
 
 @onready var picker_button: Button = $MarginContainer/HBoxContainer/MaterialPicker
-var picker := EditorResourcePicker.new()
-var previewer: EditorResourcePreview
 
 func _ready():
-	previewer = EditorInterface.get_resource_previewer()
 	picker_button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
 
 func _on_box_pressed():
@@ -50,6 +47,7 @@ func _request_material():
 	dialog.title = "Select Resource"
 	dialog.display_mode = EditorFileDialog.DISPLAY_LIST
 	dialog.filters = ["*.material"]
+	dialog.file_mode = EditorFileDialog.FILE_MODE_OPEN_FILE
 	dialog.close_requested.connect(func ():
 		get_tree().root.remove_child(dialog)
 		dialog.queue_free()
@@ -61,6 +59,7 @@ func _request_material():
 	if res == null: 
 		return
 	self.material_selected.emit(res)
+	var previewer = EditorInterface.get_resource_previewer()
 	previewer.queue_edited_resource_preview(res, self, "_update_picker_icon", null) 
 	
 func _update_picker_icon(path, preview, thumbnail, userdata):
