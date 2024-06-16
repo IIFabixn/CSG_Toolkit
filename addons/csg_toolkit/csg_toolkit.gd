@@ -8,11 +8,11 @@ var dock
 var operation: CSGShape3D.Operation = CSGShape3D.OPERATION_UNION
 var selected_material: Material = Material.new()
 const AUTOLOAD_NAME = "CsgToolkitAutoload"
-
+static var csg_plugin_path
 func _enter_tree():
 	# Config
 	add_autoload_singleton(AUTOLOAD_NAME, "res://addons/csg_toolkit/scripts/csg_toolkit_config.gd")
-	print(get_path())
+	csg_plugin_path = get_path()
 	# Scene
 	var dockScene = preload("res://addons/csg_toolkit/scenes/csg_toolkit_bar.tscn")
 	dock = dockScene.instantiate()
