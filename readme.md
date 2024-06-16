@@ -1,5 +1,5 @@
 <center>
-<img src="res/icon.png" width="128" />
+<img src="addons/csg_toolkit/res/icon.png" width="128" />
 </center>
 
 # CSG Toolkit - Enhance Your Blockout Speed
@@ -16,7 +16,7 @@ A godot plugin that will hopefully help you build quickler blockouts.
 * <b>Additional Shapes:</b> Introducing new shapes to expand your design possibilities and enhance your creative flexibility.
 
 <br />
-<img src="res/demo-image.png">
+<img src="addons/csg_toolkit/res/demo-image.png">
 
 <br />
 <br />
