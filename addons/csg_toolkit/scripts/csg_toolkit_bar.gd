@@ -44,10 +44,11 @@ func _on_config_pressed():
 
 func _request_material():
 	var dialog = EditorFileDialog.new()
-	dialog.title = "Select Resource"
+	dialog.title = "Select Material"
 	dialog.display_mode = EditorFileDialog.DISPLAY_LIST
 	dialog.filters = ["*.material"]
 	dialog.file_mode = EditorFileDialog.FILE_MODE_OPEN_FILE
+	dialog.position = ((EditorInterface.get_base_control().size / 2) as Vector2i) - dialog.size
 	dialog.close_requested.connect(func ():
 		get_tree().root.remove_child(dialog)
 		dialog.queue_free()
