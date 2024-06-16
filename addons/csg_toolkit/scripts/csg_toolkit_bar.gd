@@ -3,6 +3,18 @@ extends Control
 
 signal pressed_csg(type: Variant)
 signal operation_changed(operation: int)
+signal material_selected(mat: BaseMaterial3D)
+
+@onready var picker_button: Button = $MarginContainer/HBoxContainer/MaterialPicker
+var picker := EditorResourcePicker.new()
+var previewer: EditorResourcePreview
+
+func _ready():
+	previewer = EditorInterface.get_resource_previewer()
+
+func _on_material_selected(mat: Resource):
+	if mat is BaseMaterial3D:
+		self.material_selected.emit(mat)
 
 func _on_box_pressed():
 	self.pressed_csg.emit(CSGBox3D)
@@ -34,3 +46,22 @@ func _on_config_pressed():
 		config_view.queue_free()
 	)
 	get_tree().root.add_child(config_view)
+
+
+func _request_material():
+	print("Request Materiual")
+	var dialog = EditorFileDialog.new()
+	dialog.display_mode = EditorFileDialog.DISPLAY_THUMBNAILS
+	dialog.filters = ["*.material"]
+	var plugin: CsgToolkit = get_tree().root.get_node("CsgToolkit") as CsgToolkit
+	plugin.add_control_to_container(EditorPlugin.CONTAINER_CANVAS_EDITOR_MENU, dialog)
+	var res_path = await dialog.file_selected
+	var res = ResourceLoader.load(res_path)
+	if res == null: 
+		return
+	var preview
+	previewer.queue_edited_resource_preview(res, preview, "_update_picker_icon", null) 
+	
+func _update_picker_icon(preview: Texture2D):
+	print("Updated Button Texture")
+	picker_button.icon = preview

@@ -19,11 +19,8 @@
 [node name="CsgToolkitBar" type="Control"]
 custom_minimum_size = Vector2(42, 0)
 layout_mode = 3
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
+anchors_preset = 9
 anchor_bottom = 1.0
-grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_guypd")
 
@@ -126,8 +123,10 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_2ipgb")
 icon = ExtResource("10_tb1b3")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+[node name="MaterialPicker" type="Button" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+tooltip_text = "Material"
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
@@ -149,4 +148,5 @@ icon = ExtResource("11_5p6ju")
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Operation/Union" to="." method="_on_operation_pressed" binds= [0]]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Operation/Intersection" to="." method="_on_operation_pressed" binds= [1]]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Operation/Subtraction" to="." method="_on_operation_pressed" binds= [2]]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/MaterialPicker" to="." method="_request_material"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Config" to="." method="_on_config_pressed"]

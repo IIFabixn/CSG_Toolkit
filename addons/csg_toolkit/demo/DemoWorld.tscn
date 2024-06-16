@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://bltlelosbn4ky"]
+
+[node name="DemoWorld" type="Node3D"]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]

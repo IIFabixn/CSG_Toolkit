@@ -6,18 +6,19 @@ var config: CsgTkConfig:
 		return get_tree().root.get_node_or_null(AUTOLOAD_NAME) as CsgTkConfig
 var dock
 var operation: CSGShape3D.Operation = CSGShape3D.OPERATION_UNION
-
+var selected_material: Material = Material.new()
 const AUTOLOAD_NAME = "CsgToolkitAutoload"
 
 func _enter_tree():
 	# Config
 	add_autoload_singleton(AUTOLOAD_NAME, "res://addons/csg_toolkit/scripts/csg_toolkit_config.gd")
-
+	print(get_path())
 	# Scene
 	var dockScene = preload("res://addons/csg_toolkit/scenes/csg_toolkit_bar.tscn")
 	dock = dockScene.instantiate()
 	dock.pressed_csg.connect(create_csg)
 	dock.operation_changed.connect(set_operation)
+	dock.material_selected.connect(set_material)
 	EditorInterface.get_selection().selection_changed.connect(_on_selection_changed)
 	add_control_to_container(EditorPlugin.CONTAINER_SPATIAL_EDITOR_SIDE_LEFT, dock)
 	_on_selection_changed()
@@ -28,6 +29,9 @@ func set_operation(val: int):
 		1: operation = CSGShape3D.OPERATION_INTERSECTION
 		2: operation = CSGShape3D.OPERATION_SUBTRACTION
 		_: operation = CSGShape3D.OPERATION_UNION
+
+func set_material(material: BaseMaterial3D):
+	selected_material = material
 
 func create_csg(type: Variant):
 	var selected_nodes = get_editor_interface().get_selection().get_selected_nodes()
@@ -51,7 +55,8 @@ func create_csg(type: Variant):
 			csg = CSGTorus3D.new()
 	
 	csg.operation = operation
-	
+	csg.material = selected_material
+
 	if (selected_node.get_owner() == null):
 		print("Selected Node has no owner")
 		return
