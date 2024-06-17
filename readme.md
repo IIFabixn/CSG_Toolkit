@@ -14,8 +14,9 @@ A godot plugin that will hopefully help you build quickler blockouts.
 ## Planned Features
 * <b>Material Picker:</b> Easily select and apply materials to CSG nodes.
 * <b>Additional Shapes:</b> Introducing new shapes to expand your design possibilities and enhance your creative flexibility.
+* <b>CSG to Mesh Converter</b>
 
-### ! Note, after installing the plugin, you habe to reload your project and enable the plugin in your Projectsettings. 
+### ! Note, after installing the plugin, you habe to reload your project and enable the plugin in your Project Settings. 
 
 <br />
 <img src="addons/csg_toolkit/res/demo-image.png">
