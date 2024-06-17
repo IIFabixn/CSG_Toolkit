@@ -2,17 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://kpld1ou63wlf"
-path="res://.godot/imported/sphere.svg-c7c8c1311207415ed880ee6c5e1e06f9.ctex"
+uid="uid://cg5jbylrlg00x"
+path="res://.godot/imported/empty-material.svg-3f6f61e9606d6bae9d37867d9ac3ad0b.ctex"
 metadata={
-"has_editor_variant": true,
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/csg_toolkit/res/icons/sphere.svg"
-dest_files=["res://.godot/imported/sphere.svg-c7c8c1311207415ed880ee6c5e1e06f9.ctex"]
+source_file="res://addons/csg_toolkit/res/icons/empty-material.svg"
+dest_files=["res://.godot/imported/empty-material.svg-3f6f61e9606d6bae9d37867d9ac3ad0b.ctex"]
 
 [params]
 
@@ -34,5 +33,5 @@ process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
 svg/scale=1.0
-editor/scale_with_editor_scale=true
-editor/convert_colors_with_editor_theme=true
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false
