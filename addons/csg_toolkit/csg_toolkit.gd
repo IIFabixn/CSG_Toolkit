@@ -6,7 +6,8 @@ var config: CsgTkConfig:
 		return get_tree().root.get_node_or_null(AUTOLOAD_NAME) as CsgTkConfig
 var dock
 var operation: CSGShape3D.Operation = CSGShape3D.OPERATION_UNION
-var selected_material: Material = Material.new()
+var selected_material: BaseMaterial3D
+var selected_shader: ShaderMaterial
 const AUTOLOAD_NAME = "CsgToolkitAutoload"
 static var csg_plugin_path
 func _enter_tree():
@@ -19,6 +20,7 @@ func _enter_tree():
 	dock.pressed_csg.connect(create_csg)
 	dock.operation_changed.connect(set_operation)
 	dock.material_selected.connect(set_material)
+	dock.shader_selected.connect(set_shader)
 	EditorInterface.get_selection().selection_changed.connect(_on_selection_changed)
 	add_control_to_container(EditorPlugin.CONTAINER_SPATIAL_EDITOR_SIDE_LEFT, dock)
 	_on_selection_changed()
@@ -32,6 +34,10 @@ func set_operation(val: int):
 
 func set_material(material: BaseMaterial3D):
 	selected_material = material
+	selected_shader = null
+func set_shader(shader: ShaderMaterial):
+	selected_material = null
+	selected_shader = shader
 
 func create_csg(type: Variant):
 	var selected_nodes = get_editor_interface().get_selection().get_selected_nodes()
@@ -55,7 +61,11 @@ func create_csg(type: Variant):
 			csg = CSGTorus3D.new()
 	
 	csg.operation = operation
-	csg.material = selected_material
+	if selected_material:
+		csg.material = selected_material
+	elif selected_shader:
+		csg.material = selected_shader
+
 
 	if (selected_node.get_owner() == null):
 		print("Selected Node has no owner")
@@ -99,6 +109,8 @@ func _on_selection_changed():
 func _exit_tree():
 	dock.pressed_csg.disconnect(create_csg)
 	dock.operation_changed.disconnect(set_operation)
+	dock.material_selected.disconnect(set_material)
+	dock.shader_selected.disconnect(set_shader)
 	EditorInterface.get_selection().selection_changed.disconnect(_on_selection_changed)
 	
 	remove_autoload_singleton(AUTOLOAD_NAME)
