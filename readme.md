@@ -8,16 +8,15 @@ A godot plugin that will hopefully help you build quickler blockouts.
 ## Features
 * <b>Quick Access Buttons:</b> Adds convenient buttons to the left toolbar for swiftly adding CSG nodes.
 * <b>Efficient Child Node Addition:</b> Press SHIFT to instantly add the selected CSG as a child of the current CSG node.
-* <b>Operation Preset:</b> Automatically preselects the appropriate operation.
+* <b>Operation Preset:</b> Easily switch between different CSG operations.
+* <b>Material Picker:</b> Quickly apply materials to CSG nodes.
 * <b>Shortcut Integration:</b> Shortcuts are available when the selcted node is a CSG node.
 
 ## Planned Features
-* <b>Material Picker:</b> Easily select and apply materials to CSG nodes.
 * <b>Additional Shapes:</b> Introducing new shapes to expand your design possibilities and enhance your creative flexibility.
-* <b>CSG to Mesh Converter</b>
+* <b>CSG-(Combiner) to Single Mesh Converter:</b> Convert CSG nodes to mesh nodes.
 
 ### ! Note, after installing the plugin, you habe to reload your project and enable the plugin in your Project Settings. 
-
 <br />
 <img src="addons/csg_toolkit/res/demo-image.png">
 
