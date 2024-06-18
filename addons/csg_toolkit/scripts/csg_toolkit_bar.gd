@@ -4,6 +4,7 @@ extends Control
 signal pressed_csg(type: Variant)
 signal operation_changed(operation: int)
 signal material_selected(mat: BaseMaterial3D)
+signal shader_selected(mat: ShaderMaterial)
 
 @onready var picker_button: Button = $MarginContainer/HBoxContainer/Material/MaterialPicker
 
@@ -46,7 +47,7 @@ func _request_material():
 	var dialog = EditorFileDialog.new()
 	dialog.title = "Select Material"
 	dialog.display_mode = EditorFileDialog.DISPLAY_LIST
-	dialog.filters = ["*.material"]
+	dialog.filters = ["*.tres, *.material, *.res"]
 	dialog.file_mode = EditorFileDialog.FILE_MODE_OPEN_FILE
 	dialog.position = ((EditorInterface.get_base_control().size / 2) as Vector2i) - dialog.size
 	dialog.close_requested.connect(func ():
@@ -59,9 +60,14 @@ func _request_material():
 	var res = ResourceLoader.load(res_path)
 	if res == null: 
 		return
-	self.material_selected.emit(res)
+	if res is BaseMaterial3D:
+		self.material_selected.emit(res)
+	elif res is ShaderMaterial:
+		self.shader_selected.emit(res)
+	else:
+		return
 	var previewer = EditorInterface.get_resource_previewer()
 	previewer.queue_edited_resource_preview(res, self, "_update_picker_icon", null) 
 	
 func _update_picker_icon(path, preview, thumbnail, userdata):
-	picker_button.icon = thumbnail
+	picker_button.icon = preview

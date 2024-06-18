@@ -1,8 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://bltlelosbn4ky"]
+[gd_scene load_steps=5 format=3 uid="uid://bltlelosbn4ky"]
+
+[ext_resource type="Material" uid="uid://bvlrolerfilhd" path="res://addons/csg_toolkit/demo/new_shader_material.tres" id="1_l6ffa"]
+[ext_resource type="Material" uid="uid://drmq7gpguytcl" path="res://addons/csg_toolkit/demo/red.material" id="1_o0coe"]
 
 [sub_resource type="Material" id="Material_e07dj"]
 resource_local_to_scene = false
 resource_name = ""
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o5neg"]
 
 [node name="DemoWorld" type="Node3D"]
 
@@ -21,7 +26,14 @@ material = SubResource("Material_e07dj")
 material = SubResource("Material_e07dj")
 
 [node name="CSGTorus3D" type="CSGTorus3D" parent="CSGCombiner3D"]
-material = SubResource("Material_e07dj")
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="CSGCombiner3D"]
-material = SubResource("Material_e07dj")
+material = SubResource("StandardMaterial3D_o5neg")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.33979, 0, 1.19797)
+material = ExtResource("1_l6ffa")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.60176, 0, -0.265296)
+material = ExtResource("1_o0coe")

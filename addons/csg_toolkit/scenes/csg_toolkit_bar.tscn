@@ -18,7 +18,7 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ixko7"]
 
 [node name="CsgToolkitBar" type="Control"]
-custom_minimum_size = Vector2(42, 0)
+custom_minimum_size = Vector2(56, 2.08165e-12)
 layout_mode = 3
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -41,13 +41,14 @@ theme_override_constants/margin_bottom = 8
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 16
+alignment = 1
 
 [node name="CSG" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+alignment = 1
 
 [node name="Box" type="Button" parent="MarginContainer/HBoxContainer/CSG"]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
 tooltip_text = "Box"
 icon = ExtResource("2_iwjnu")
@@ -55,9 +56,8 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="Cylinder" type="Button" parent="MarginContainer/HBoxContainer/CSG"]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
-size_flags_horizontal = 0
 tooltip_text = "Cylinder"
 theme_override_constants/icon_max_width = 24
 icon = ExtResource("3_tedev")
@@ -65,9 +65,8 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="Mesh" type="Button" parent="MarginContainer/HBoxContainer/CSG"]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
-size_flags_horizontal = 0
 tooltip_text = "Mesh"
 theme_override_constants/icon_max_width = 24
 icon = ExtResource("4_8ifcb")
@@ -75,9 +74,8 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="Polygon" type="Button" parent="MarginContainer/HBoxContainer/CSG"]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
-size_flags_horizontal = 0
 tooltip_text = "Polygon"
 theme_override_constants/icon_max_width = 24
 icon = ExtResource("5_cc45h")
@@ -85,9 +83,8 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="Sphere" type="Button" parent="MarginContainer/HBoxContainer/CSG"]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
-size_flags_horizontal = 0
 tooltip_text = "Sphere"
 theme_override_constants/icon_max_width = 24
 icon = ExtResource("6_lwspd")
@@ -95,9 +92,8 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="Torus" type="Button" parent="MarginContainer/HBoxContainer/CSG"]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
-size_flags_horizontal = 0
 tooltip_text = "Torus"
 theme_override_constants/icon_max_width = 24
 icon = ExtResource("7_t1wb8")
@@ -106,12 +102,11 @@ expand_icon = true
 
 [node name="Operation" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+alignment = 1
 
 [node name="Union" type="Button" parent="MarginContainer/HBoxContainer/Operation"]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
-size_flags_horizontal = 0
 tooltip_text = "Union"
 theme_override_constants/icon_max_width = 24
 toggle_mode = true
@@ -121,9 +116,8 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="Intersection" type="Button" parent="MarginContainer/HBoxContainer/Operation"]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
-size_flags_horizontal = 0
 tooltip_text = "Intersection"
 theme_override_constants/icon_max_width = 24
 toggle_mode = true
@@ -133,9 +127,8 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="Subtraction" type="Button" parent="MarginContainer/HBoxContainer/Operation"]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
-size_flags_horizontal = 0
 tooltip_text = "Subtraction"
 theme_override_constants/icon_max_width = 24
 toggle_mode = true
@@ -146,10 +139,10 @@ expand_icon = true
 
 [node name="Material" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+alignment = 1
 
 [node name="MaterialPicker" type="Button" parent="MarginContainer/HBoxContainer/Material"]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
 tooltip_text = "Material"
 icon = ExtResource("11_r00bg")
@@ -164,13 +157,15 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_ixko7")
 [node name="Options" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+alignment = 1
 
 [node name="Config" type="Button" parent="MarginContainer/HBoxContainer/Options"]
+custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
-size_flags_horizontal = 4
 tooltip_text = "Config"
 theme_override_constants/icon_max_width = 24
 icon = ExtResource("11_5p6ju")
+icon_alignment = 1
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/CSG/Box" to="." method="_on_box_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/CSG/Cylinder" to="." method="_on_cylinder_pressed"]
