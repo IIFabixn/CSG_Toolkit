@@ -1,6 +1,5 @@
 @tool
-extends EditorPlugin
-class_name CsgToolkit
+class_name CsgToolkit extends EditorPlugin
 var config: CsgTkConfig:
 	get:
 		return get_tree().root.get_node_or_null(AUTOLOAD_NAME) as CsgTkConfig
@@ -14,6 +13,8 @@ func _enter_tree():
 	# Config
 	add_autoload_singleton(AUTOLOAD_NAME, "res://addons/csg_toolkit/scripts/csg_toolkit_config.gd")
 	csg_plugin_path = get_path()
+	# Nodes
+	add_custom_type("CSGRepeater3D", "CSGCombiner3D", preload("res://addons/csg_toolkit/scripts/csg_repeater_3d.gd"), null)
 	# Scene
 	var dockScene = preload("res://addons/csg_toolkit/scenes/csg_toolkit_bar.tscn")
 	dock = dockScene.instantiate()
@@ -107,6 +108,7 @@ func _on_selection_changed():
 		dock.hide()
 
 func _exit_tree():
+	remove_custom_type("CSGRepeater3D")
 	dock.pressed_csg.disconnect(create_csg)
 	dock.operation_changed.disconnect(set_operation)
 	dock.material_selected.disconnect(set_material)
