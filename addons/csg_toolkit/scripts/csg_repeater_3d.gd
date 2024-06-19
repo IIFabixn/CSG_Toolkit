@@ -29,8 +29,11 @@ var _repeat_z: int = 0
 		repeat()
 
 func _enter_tree():
+	if get_child_count() == 1:
+		template_node = get_child(0)
 	# Connect the child_entered_tree signal to update_template_node method
 	child_entered_tree.connect(update_template_node)
+	repeat()
 
 func update_template_node(node: Node):
 	if node is Node3D and get_child_count() == 1:
