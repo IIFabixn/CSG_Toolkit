@@ -1,7 +1,7 @@
 @tool
 class_name CSGRepeater3D extends CSGCombiner3D
 
-var template_node: Object
+var template_node
 
 var _repeat: Vector3 = Vector3.ONE
 @export var repeat: Vector3:
@@ -20,16 +20,28 @@ var _spacing: Vector3 = Vector3.ONE
 		repeat_template()
 
 func _enter_tree():
+	template_node = get_child(0)
+	if template_node != null:
+		repeat_template()
+
 	child_entered_tree.connect(on_child_enter)
 	child_exiting_tree.connect(on_child_exit)
+	EditorInterface.get_inspector().property_edited.connect(Callable(self, "update_repeat"))
+	
 
-func on_child_enter(node):
+func _exit_tree():
+	EditorInterface.get_inspector().property_edited.disconnect(Callable(self, "update_repeat"))
+
+func on_child_enter(node: Node):
 	if template_node == null:
 		template_node = node
-		print(template_node.get_property_list())
 		repeat_template()
-		
-func on_child_exit(node):
+
+func update_repeat(val: String):
+	if EditorInterface.get_inspector().get_edited_object() == template_node:
+		repeat_template()
+
+func on_child_exit(node: Node):
 	if node == template_node:
 		template_node = null
 		clear_children()
@@ -59,7 +71,7 @@ func repeat_template():
 				# Instance a new template node
 				var new_node = template_node.duplicate()
 				new_node.name = "%s_instance_%d_%d_%d" % [template_node.name, x, y, z]
-				add_child(new_node)
+				call_deferred("add_child", new_node)
 				
 				# Set the new position based on spacing
 				new_node.translate(Vector3(

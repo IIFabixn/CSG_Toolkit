@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bltlelosbn4ky"]
+[gd_scene load_steps=6 format=3 uid="uid://bltlelosbn4ky"]
 
-[ext_resource type="Material" uid="uid://bvlrolerfilhd" path="res://addons/csg_toolkit/demo/new_shader_material.tres" id="1_l6ffa"]
+[ext_resource type="Material" path="res://addons/csg_toolkit/demo/new_shader_material.tres" id="1_l6ffa"]
 [ext_resource type="Material" uid="uid://drmq7gpguytcl" path="res://addons/csg_toolkit/demo/red.material" id="1_o0coe"]
+[ext_resource type="Script" path="res://addons/csg_toolkit/scripts/csg_repeater_3d.gd" id="3_24wq8"]
 
 [sub_resource type="Material" id="Material_e07dj"]
 resource_local_to_scene = false
@@ -36,4 +37,20 @@ material = ExtResource("1_l6ffa")
 
 [node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.60176, 0, -0.265296)
+material = ExtResource("1_o0coe")
+
+[node name="CSGRepeater3D" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.55408, 1.16279, -0.287936)
+script = ExtResource("3_24wq8")
+repeat = Vector3(2, 2, 1)
+spacing = Vector3(2, 3, 1)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGRepeater3D"]
+size = Vector3(1, 2, 1)
+material = ExtResource("1_o0coe")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGRepeater3D/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0335083, -0.268066, 0)
+operation = 2
+size = Vector3(0.653687, 1.53613, 1)
 material = ExtResource("1_o0coe")
