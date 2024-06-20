@@ -48,5 +48,5 @@ func repeat_template():
 				if x == 0 and y == 0 and z == 0:
 					continue # Skip the original template node position
 				var new_instance = template_node.duplicate()
-				new_instance.translate(Vector3(x * (spacing.x + 1), y * (spacing.y + 1), z * (spacing.z + 1)))
+				new_instance.translate(Vector3(x , y, z))
 				add_child(new_instance)
