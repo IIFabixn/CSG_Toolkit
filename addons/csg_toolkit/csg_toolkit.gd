@@ -22,6 +22,8 @@ func _enter_tree():
 	dock.operation_changed.connect(set_operation)
 	dock.material_selected.connect(set_material)
 	dock.shader_selected.connect(set_shader)
+	if not config.auto_hide:
+		dock.show()
 	EditorInterface.get_selection().selection_changed.connect(_on_selection_changed)
 	add_control_to_container(EditorPlugin.CONTAINER_SPATIAL_EDITOR_SIDE_LEFT, dock)
 	_on_selection_changed()
@@ -105,7 +107,8 @@ func _on_selection_changed():
 		dock.show()
 	else:
 		# Hide the plugin UI if the selected node is not a CSG node
-		dock.hide()
+		if config.auto_hide:
+			dock.hide()
 
 func _exit_tree():
 	remove_custom_type("CSGRepeater3D")

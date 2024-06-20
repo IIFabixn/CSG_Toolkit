@@ -29,6 +29,7 @@ material = SubResource("Material_e07dj")
 [node name="CSGTorus3D" type="CSGTorus3D" parent="CSGCombiner3D"]
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.19612, 0.00959516, 0.0210142)
 material = SubResource("StandardMaterial3D_o5neg")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
@@ -47,10 +48,3 @@ spacing = Vector3(2, 3, 1)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGRepeater3D"]
 size = Vector3(1, 2, 1)
-material = ExtResource("1_o0coe")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="CSGRepeater3D/CSGBox3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0335083, -0.268066, 0)
-operation = 2
-size = Vector3(0.653687, 1.53613, 1)
-material = ExtResource("1_o0coe")
