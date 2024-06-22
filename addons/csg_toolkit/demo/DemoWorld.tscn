@@ -15,5 +15,7 @@ material = SubResource("StandardMaterial3D_6iudw")
 
 [node name="CSGRepeater3D" type="CSGCombiner3D" parent="." node_paths=PackedStringArray("template_node")]
 script = ExtResource("3_24wq8")
-template_node = NodePath("")
+template_node = NodePath("CSGBox3D")
 repeat = Vector3(2, 2, 1)
+
+[node name="CSGBox3D" type="CSGCylinder3D" parent="CSGRepeater3D"]

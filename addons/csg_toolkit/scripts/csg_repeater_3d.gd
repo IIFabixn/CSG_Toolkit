@@ -36,17 +36,26 @@ func _enter_tree():
 	if not EditorInterface.get_inspector().property_edited.is_connected(update_repeat):
 		EditorInterface.get_inspector().property_edited.connect(update_repeat)
 
+var changed_type = false # fixes breaking repeater after type change
 func _on_child_entered(node):
 	if not template_node:
 		template_node = node
+	else:
+		if node.get_class() != template_node.get_class():
+			print("Template node type changed from %s to %s" % [template_node.get_class(), node.get_class()])
+			changed_type = true
+			template_node = node
+		else: changed_type = false
 
 func _on_child_existing(node: Node3D):
 	if node == template_node:
-		call_deferred("_clear_template")
+		call_deferred("_clear_template", node)
 
-func _clear_template():
+func _clear_template(node):
 	if template_node.get_parent() == self:
-		template_node = null
+		# fixes reparent problem
+		if not changed_type:
+			template_node = null
 	else:
 		template_node = template_node.get_parent()
 
