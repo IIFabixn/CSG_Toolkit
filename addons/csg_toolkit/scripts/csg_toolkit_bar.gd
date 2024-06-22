@@ -6,7 +6,7 @@ signal operation_changed(operation: int)
 signal material_selected(mat: BaseMaterial3D)
 signal shader_selected(mat: ShaderMaterial)
 
-@onready var picker_button: Button = $MarginContainer/HBoxContainer/Material/MaterialPicker
+@onready var picker_button: Button = $MarginContainer/ScrollContainer/HBoxContainer/Material/MaterialPicker
 
 func _ready():
 	picker_button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER

@@ -1,17 +1,17 @@
 @tool
 extends Window
 
-var config: CsgTkConfig
+@onready var config: CsgTkConfig:
+	get: return get_tree().root.get_node(CsgToolkit.AUTOLOAD_NAME) as CsgTkConfig
 @onready var action_key_button: Button = $MarginContainer/VBoxContainer/HBoxContainer2/Button
 @onready var default_behavior_option: OptionButton = $MarginContainer/VBoxContainer/HBoxContainer/OptionButton
 @onready var auto_hide_switch: CheckBox = $MarginContainer/VBoxContainer/HBoxContainer3/CheckButton
 signal key_press(key: InputEventKey)
-func _enter_tree():
-	config = get_tree().root.get_node(CsgToolkit.AUTOLOAD_NAME) as CsgTkConfig
+ 
 func _ready():
 	default_behavior_option.select(config.default_behavior)
 	action_key_button.text = OS.get_keycode_string(config.action_key)
-	auto_hide_switch.set_pressed_no_signal(config.auto_hide)
+	auto_hide_switch.button_pressed = config.auto_hide
 
 func _on_option_button_item_selected(index):
 	match index:

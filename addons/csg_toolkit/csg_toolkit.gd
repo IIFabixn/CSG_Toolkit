@@ -1,6 +1,6 @@
 @tool
 class_name CsgToolkit extends EditorPlugin
-var config: CsgTkConfig:
+@onready var config: CsgTkConfig:
 	get:
 		return get_tree().root.get_node_or_null(AUTOLOAD_NAME) as CsgTkConfig
 var dock
@@ -22,11 +22,9 @@ func _enter_tree():
 	dock.operation_changed.connect(set_operation)
 	dock.material_selected.connect(set_material)
 	dock.shader_selected.connect(set_shader)
-	if not config.auto_hide:
-		dock.show()
+	dock.show()
 	EditorInterface.get_selection().selection_changed.connect(_on_selection_changed)
 	add_control_to_container(EditorPlugin.CONTAINER_SPATIAL_EDITOR_SIDE_LEFT, dock)
-	_on_selection_changed()
 
 func set_operation(val: int):
 	match val:
@@ -102,12 +100,11 @@ func _on_selection_changed():
 	# Get the current selected nodes
 	var selected_nodes = get_editor_interface().get_selection().get_selected_nodes()
 	# Check if the selected node is a CSGShape
-	if !selected_nodes.is_empty() and selected_nodes[0] is CSGShape3D:
-		# Make the plugin visible
-		dock.show()
-	else:
-		# Hide the plugin UI if the selected node is not a CSG node
-		if config.auto_hide:
+	if config.auto_hide:
+		if !selected_nodes.is_empty() and selected_nodes[0] is CSGShape3D:
+			# Make the plugin visible
+			dock.show()
+		else:
 			dock.hide()
 
 func _exit_tree():

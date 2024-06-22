@@ -1,49 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://bltlelosbn4ky"]
+[gd_scene load_steps=3 format=3 uid="uid://bltlelosbn4ky"]
 
-[ext_resource type="Material" path="res://addons/csg_toolkit/demo/new_shader_material.tres" id="1_l6ffa"]
-[ext_resource type="Material" uid="uid://drmq7gpguytcl" path="res://addons/csg_toolkit/demo/red.material" id="1_o0coe"]
 [ext_resource type="Script" path="res://addons/csg_toolkit/scripts/csg_repeater_3d.gd" id="3_24wq8"]
 
-[sub_resource type="Material" id="Material_e07dj"]
-resource_local_to_scene = false
-resource_name = ""
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o5neg"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6iudw"]
 
 [node name="DemoWorld" type="Node3D"]
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
 
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D"]
-material = SubResource("Material_e07dj")
-
-[node name="CSGMesh3D" type="CSGMesh3D" parent="CSGCombiner3D"]
-material = SubResource("Material_e07dj")
-
-[node name="CSGPolygon3D" type="CSGPolygon3D" parent="CSGCombiner3D"]
-material = SubResource("Material_e07dj")
-
-[node name="CSGSphere3D" type="CSGSphere3D" parent="CSGCombiner3D"]
-material = SubResource("Material_e07dj")
-
-[node name="CSGTorus3D" type="CSGTorus3D" parent="CSGCombiner3D"]
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.19612, 0.00959516, 0.0210142)
-material = SubResource("StandardMaterial3D_o5neg")
-
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.33979, 0, 1.19797)
-material = ExtResource("1_l6ffa")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 6, -0.5)
+size = Vector3(8, 12, 1)
+material = SubResource("StandardMaterial3D_6iudw")
 
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.60176, 0, -0.265296)
-material = ExtResource("1_o0coe")
-
-[node name="CSGRepeater3D" type="CSGCombiner3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.3922, 0, -0.0290456)
+[node name="CSGRepeater3D" type="CSGCombiner3D" parent="." node_paths=PackedStringArray("template_node")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 script = ExtResource("3_24wq8")
+template_node = NodePath("CSGBox3D")
 repeat = Vector3(2, 2, 1)
-spacing = Vector3(1, 1, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGRepeater3D"]
