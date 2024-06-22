@@ -38,13 +38,12 @@ func _enter_tree():
 
 var changed_type = false # fixes breaking repeater after type change
 func _on_child_entered(node):
+	changed_type = false
 	if not template_node:
 		template_node = node
-	else:
-		if node.get_class() != template_node.get_class():
+	elif node.get_class() != template_node.get_class():
 			changed_type = true
 			template_node = node
-		else: changed_type = false
 
 func _on_child_existing(node: Node3D):
 	if node == template_node:

@@ -18,4 +18,4 @@ script = ExtResource("3_24wq8")
 template_node = NodePath("CSGBox3D")
 repeat = Vector3(2, 2, 1)
 
-[node name="CSGBox3D" type="CSGCylinder3D" parent="CSGRepeater3D"]
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGRepeater3D"]
