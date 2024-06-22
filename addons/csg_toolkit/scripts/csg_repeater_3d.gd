@@ -35,15 +35,33 @@ func _enter_tree():
 		child_exiting_tree.connect(_on_child_existing)
 	if not EditorInterface.get_inspector().property_edited.is_connected(update_repeat):
 		EditorInterface.get_inspector().property_edited.connect(update_repeat)
+	if not get_tree().node_added.is_connected(_on_node_added):
+		get_tree().node_added.connect(_on_node_added)
+	if not get_tree().node_removed.is_connected(_on_node_removed):
+		get_tree().node_removed.connect(_on_node_removed)
 
+func _on_node_added(node: Node):
+	if template_node != null and template_node.is_ancestor_of(node):
+		repeat_template()
+func _on_node_removed(node: Node):
+	if template_node != null and template_node.is_ancestor_of(node):
+		node.queue_free()
+		call_deferred("repeat_template")
+
+var temp_was_empty = true
 var changed_type = false # fixes breaking repeater after type change
 func _on_child_entered(node):
 	changed_type = false
 	if not template_node:
+		temp_was_empty = true
 		template_node = node
-	elif node.get_class() != template_node.get_class():
-			changed_type = true
-			template_node = node
+	elif temp_was_empty and node.get_class() != template_node.get_class():
+		changed_type = true
+		template_node = node
+	else:
+		call_deferred("remove_child", node)
+		node.call_deferred("queue_free")
+		temp_was_empty = false
 
 func _on_child_existing(node: Node3D):
 	if node == template_node:
