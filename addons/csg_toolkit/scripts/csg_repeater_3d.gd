@@ -1,18 +1,18 @@
 @tool
 class_name CSGRepeater3D extends CSGCombiner3D
 
-var template_node
+var template_node: CSGShape3D
 
 var _repeat: Vector3 = Vector3.ONE
-@export var repeat: Vector3:
+@export var repeat := Vector3.ONE:
 	get:
 		return _repeat
 	set(value):
 		_repeat = value
 		repeat_template()
 
-var _spacing: Vector3 = Vector3.ONE
-@export var spacing: Vector3:
+var _spacing: Vector3 = Vector3.ZERO
+@export var spacing := Vector3.ZERO:
 	get:
 		return _spacing
 	set(value):
@@ -37,7 +37,7 @@ func on_child_enter(node: Node):
 		template_node = node
 		repeat_template()
 
-func update_repeat(val: String):
+func update_repeat(prop: String):
 	if EditorInterface.get_inspector().get_edited_object() == template_node:
 		repeat_template()
 
@@ -75,7 +75,7 @@ func repeat_template():
 				
 				# Set the new position based on spacing
 				new_node.translate(Vector3(
-					x * _spacing.x + template_node.position.x,
-					y * _spacing.y + template_node.position.y,
-					z * _spacing.z + template_node.position.z
+					x * (template_node.get_aabb().size.x + _spacing.x),
+					y * (template_node.get_aabb().size.y + _spacing.y),
+					z * (template_node.get_aabb().size.z + _spacing.z)
 				))

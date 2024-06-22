@@ -41,10 +41,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.60176, 0, -0.265296)
 material = ExtResource("1_o0coe")
 
 [node name="CSGRepeater3D" type="CSGCombiner3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.55408, 1.16279, -0.287936)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.3922, 0, -0.0290456)
 script = ExtResource("3_24wq8")
 repeat = Vector3(2, 2, 1)
-spacing = Vector3(2, 3, 1)
+spacing = Vector3(1, 1, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGRepeater3D"]
-size = Vector3(1, 2, 1)
