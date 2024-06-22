@@ -8,6 +8,6 @@
 script = ExtResource("1_xplbf")
 template_node = NodePath("CSGBox3D")
 repeat = Vector3(2, 2, 1)
-spacing = Vector3(2, 0.2, 0)
+spacing = Vector3(2, 0.8, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGRepeater3D"]
