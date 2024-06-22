@@ -40,12 +40,15 @@ func _on_child_entered(node):
 	if not template_node:
 		template_node = node
 
-func _on_child_existing(node):
+func _on_child_existing(node: Node3D):
 	if node == template_node:
 		call_deferred("_clear_template")
 
 func _clear_template():
-	template_node = null
+	if template_node.get_parent() == self:
+		template_node = null
+	else:
+		template_node = template_node.get_parent()
 
 func _exit_tree():
 	EditorInterface.get_inspector().property_edited.disconnect(update_repeat)

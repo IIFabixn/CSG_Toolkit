@@ -14,9 +14,6 @@ size = Vector3(8, 12, 1)
 material = SubResource("StandardMaterial3D_6iudw")
 
 [node name="CSGRepeater3D" type="CSGCombiner3D" parent="." node_paths=PackedStringArray("template_node")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 script = ExtResource("3_24wq8")
-template_node = NodePath("CSGBox3D")
+template_node = NodePath("")
 repeat = Vector3(2, 2, 1)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="CSGRepeater3D"]
