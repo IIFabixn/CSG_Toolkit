@@ -13,8 +13,6 @@ var selected_shader: ShaderMaterial
 
 func _enter_tree():
 	EditorInterface.get_selection().selection_changed.connect(_on_selection_changed)
-	show()
-	_on_selection_changed()
 
 func _exit_tree():
 	EditorInterface.get_selection().selection_changed.disconnect(_on_selection_changed)
