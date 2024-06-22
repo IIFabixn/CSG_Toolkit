@@ -153,10 +153,6 @@ icon = ExtResource("11_r00bg")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Button" type="Button" parent="MarginContainer/ScrollContainer/HBoxContainer/Material"]
-layout_mode = 2
-text = "Rep"
-
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/ScrollContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
