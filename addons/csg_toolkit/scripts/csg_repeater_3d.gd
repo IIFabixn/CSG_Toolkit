@@ -42,7 +42,6 @@ func _on_child_entered(node):
 		template_node = node
 	else:
 		if node.get_class() != template_node.get_class():
-			print("Template node type changed from %s to %s" % [template_node.get_class(), node.get_class()])
 			changed_type = true
 			template_node = node
 		else: changed_type = false
