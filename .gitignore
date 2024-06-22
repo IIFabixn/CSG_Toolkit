@@ -1,3 +1,4 @@
 # Godot 4+ specific ignores
 .godot/
 .builds/
+addons/csg_toolkit/csg_toolkit_config.cfg
