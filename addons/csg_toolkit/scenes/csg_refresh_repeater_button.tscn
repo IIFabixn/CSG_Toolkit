@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://ver5l21tu05h"]
+
+[ext_resource type="Script" path="res://addons/csg_toolkit/scripts/csg_refresh_repeater_button.gd" id="1_xphgr"]
+
+[node name="CsgRefreshRepeaterButton" type="Button"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Update Repeater"
+script = ExtResource("1_xphgr")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

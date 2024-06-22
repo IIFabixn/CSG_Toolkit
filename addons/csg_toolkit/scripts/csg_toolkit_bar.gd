@@ -1,37 +1,58 @@
 @tool
-extends Control
+class_name CSGToolkitBar extends Control
 
-signal pressed_csg(type: Variant)
-signal operation_changed(operation: int)
-signal material_selected(mat: BaseMaterial3D)
-signal shader_selected(mat: ShaderMaterial)
+@onready var config: CsgTkConfig:
+	get:
+		return get_tree().root.get_node_or_null(CsgToolkit.AUTOLOAD_NAME) as CsgTkConfig
+
+var operation: CSGShape3D.Operation = CSGShape3D.OPERATION_UNION
+var selected_material: BaseMaterial3D
+var selected_shader: ShaderMaterial
 
 @onready var picker_button: Button = $MarginContainer/ScrollContainer/HBoxContainer/Material/MaterialPicker
+
+func _enter_tree():
+	EditorInterface.get_selection().selection_changed.connect(_on_selection_changed)
+	show()
+	_on_selection_changed()
+
+func _exit_tree():
+	EditorInterface.get_selection().selection_changed.disconnect(_on_selection_changed)
+
+func _on_selection_changed():
+	if not config.auto_hide:
+		return
+	var selection = EditorInterface.get_selection().get_selected_nodes()
+	if selection.any(func (node): return node is CSGShape3D):
+		show()
+	else:
+		hide()
 
 func _ready():
 	picker_button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
 
 func _on_box_pressed():
-	self.pressed_csg.emit(CSGBox3D)
+	create_csg(CSGBox3D)
 
 func _on_cylinder_pressed():
-	self.pressed_csg.emit(CSGCylinder3D)
+	create_csg(CSGCylinder3D)
 
 func _on_mesh_pressed():
-	self.pressed_csg.emit(CSGMesh3D)
+	create_csg(CSGMesh3D)
 
 func _on_polygon_pressed():
-	self.pressed_csg.emit(CSGPolygon3D)
+	create_csg(CSGPolygon3D)
 
 func _on_sphere_pressed():
-	self.pressed_csg.emit(CSGSphere3D)
+	create_csg(CSGSphere3D)
 
 func _on_torus_pressed():
-	self.pressed_csg.emit(CSGTorus3D)
+	create_csg(CSGTorus3D)
 
 # Operation Toggle
 func _on_operation_pressed(val):
 	self.operation_changed.emit(val)
+
 
 func _on_config_pressed():
 	var config_view_scene = preload("res://addons/csg_toolkit/scenes/config_window.tscn")
@@ -41,7 +62,6 @@ func _on_config_pressed():
 		config_view.queue_free()
 	)
 	get_tree().root.add_child(config_view)
-
 
 func _request_material():
 	var dialog = EditorFileDialog.new()
@@ -61,9 +81,9 @@ func _request_material():
 	if res == null: 
 		return
 	if res is BaseMaterial3D:
-		self.material_selected.emit(res)
+		update_material(res)
 	elif res is ShaderMaterial:
-		self.shader_selected.emit(res)
+		update_shader(res)
 	else:
 		return
 	var previewer = EditorInterface.get_resource_previewer()
@@ -71,3 +91,75 @@ func _request_material():
 	
 func _update_picker_icon(path, preview, thumbnail, userdata):
 	picker_button.icon = preview
+	
+
+func set_operation(val: int):
+	match val:
+		0: operation = CSGShape3D.OPERATION_UNION
+		1: operation = CSGShape3D.OPERATION_INTERSECTION
+		2: operation = CSGShape3D.OPERATION_SUBTRACTION
+		_: operation = CSGShape3D.OPERATION_UNION
+
+func update_material(material: BaseMaterial3D):
+	selected_material = material
+	selected_shader = null
+
+func update_shader(shader: ShaderMaterial):
+	selected_material = null
+	selected_shader = shader
+
+func create_csg(type: Variant):
+	var selected_nodes = EditorInterface.get_selection().get_selected_nodes()
+	if selected_nodes.is_empty() or !(selected_nodes[0] is CSGShape3D):
+		# Do not create a csg if not inside another csgshape
+		return
+	var selected_node: CSGShape3D = selected_nodes[0]
+	var csg: CSGShape3D
+	match type:
+		CSGBox3D:
+			csg = CSGBox3D.new()
+		CSGCylinder3D:
+			csg = CSGCylinder3D.new()
+		CSGSphere3D:
+			csg = CSGSphere3D.new()
+		CSGMesh3D:
+			csg = CSGMesh3D.new()
+		CSGPolygon3D:
+			csg = CSGPolygon3D.new()
+		CSGTorus3D:
+			csg = CSGTorus3D.new()
+	
+	csg.operation = operation
+	if selected_material:
+		csg.material = selected_material
+	elif selected_shader:
+		csg.material = selected_shader
+
+
+	if (selected_node.get_owner() == null):
+		print("Selected Node has no owner")
+		return
+
+	if Input.is_key_pressed(config.action_key):
+		if config.default_behavior == CsgTkConfig.CSGBehavior.SIBLING:
+			_add_as_child(selected_node, csg)
+		elif config.default_behavior == CsgTkConfig.CSGBehavior.CHILD:
+			_add_as_sibling(selected_node, csg)
+	else:
+		if config.default_behavior == CsgTkConfig.CSGBehavior.SIBLING:
+			_add_as_sibling(selected_node, csg)
+		elif config.default_behavior == CsgTkConfig.CSGBehavior.CHILD:
+			_add_as_child(selected_node, csg)
+
+	EditorInterface.get_selection().clear()
+	EditorInterface.get_selection().add_node(csg)
+
+func _add_as_child(selected_node: CSGShape3D, csg: CSGShape3D):
+	selected_node.add_child(csg, true)
+	csg.owner = selected_node.get_owner()
+	csg.global_position = selected_node.global_position
+	
+func _add_as_sibling(selected_node: CSGShape3D, csg: CSGShape3D):
+	selected_node.get_parent().add_child(csg, true)
+	csg.owner = selected_node.get_owner()
+	csg.global_position = selected_node.global_position
