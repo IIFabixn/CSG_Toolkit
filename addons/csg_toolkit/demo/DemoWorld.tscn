@@ -4,8 +4,9 @@
 
 [node name="DemoWorld" type="Node3D"]
 
-[node name="CSGRepeater3D" type="CSGCombiner3D" parent="."]
+[node name="CSGRepeater3D" type="CSGCombiner3D" parent="." node_paths=PackedStringArray("template_node")]
 script = ExtResource("1_xplbf")
+template_node = NodePath("CSGBox3D2")
 repeat = Vector3(2, 2, 1)
 spacing = Vector3(1, 1, 0)
 
