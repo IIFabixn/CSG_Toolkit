@@ -24,4 +24,4 @@ func _on_pressed():
 	if not repeater:
 		repeater = (selection[0] as Node).find_parent("CSGRepeater3D")
 	if repeater and repeater.has_method("repeat_template"):
-		repeater.call("repeat_template")
+		repeater.call("repeat_template", true)
