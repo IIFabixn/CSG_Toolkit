@@ -1,13 +1,62 @@
-[gd_scene load_steps=2 format=3 uid="uid://bltlelosbn4ky"]
+[gd_scene load_steps=7 format=3 uid="uid://bltlelosbn4ky"]
 
 [ext_resource type="Script" path="res://addons/csg_toolkit/scripts/csg_repeater_3d.gd" id="1_xplbf"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k7dkv"]
+albedo_color = Color(0.122252, 0.122252, 0.122252, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lvr7s"]
+albedo_color = Color(0.121569, 0.121569, 0.121569, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w8l0w"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_j443t"]
+size = Vector3(8.5, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fm87r"]
+albedo_color = Color(0.351563, 0.351563, 0.351563, 1)
+
 [node name="DemoWorld" type="Node3D"]
 
-[node name="CSGRepeater3D" type="CSGCombiner3D" parent="." node_paths=PackedStringArray("template_node")]
-script = ExtResource("1_xplbf")
-template_node = NodePath("CSGBox3D")
-repeat = Vector3(2, 2, 1)
-spacing = Vector3(1, 1, 0)
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
 
-[node name="CSGBox3D" type="CSGBox3D" parent="CSGRepeater3D"]
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+size = Vector3(8, 6, 0.2)
+
+[node name="Windows" type="CSGCombiner3D" parent="CSGCombiner3D" node_paths=PackedStringArray("template_node")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, 0)
+script = ExtResource("1_xplbf")
+template_node = NodePath("Window")
+repeat = Vector3(3, 1, 1)
+spacing = Vector3(1, 0, 0)
+
+[node name="Window" type="CSGBox3D" parent="CSGCombiner3D/Windows"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.75, 2.5, 0)
+size = Vector3(1.5, 2, 1)
+material = SubResource("StandardMaterial3D_k7dkv")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D/Windows/Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+operation = 2
+size = Vector3(1, 1.3, 1)
+material = SubResource("StandardMaterial3D_lvr7s")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Windows/Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.65, 0.2)
+size = Vector3(1, 0.3, 1)
+material = SubResource("StandardMaterial3D_w8l0w")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1)
+size = Vector3(9, 1, 1)
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.5, 0)
+mesh = SubResource("PrismMesh_j443t")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D/CSGMesh3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0499998, -0.65, -0.2)
+size = Vector3(8.1, 0.3, 1)
+material = SubResource("StandardMaterial3D_fm87r")
