@@ -7,7 +7,6 @@ var _template_node: CSGShape3D = null
 @export var template_node: CSGShape3D = null:
 	get: return _template_node
 	set(value):
-		print(value)
 		_template_node = value
 		notify_property_list_changed()
 		repeat_template()
