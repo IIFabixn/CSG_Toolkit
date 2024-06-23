@@ -36,11 +36,6 @@ func _enter_tree():
 func _on_child_entered(node: CSGShape3D):
 	if not template_node:
 		template_node = node
-	elif node.get_class() != template_node.get_class():
-		var dup = template_node.duplicate()
-		node.add_child(dup)
-		dup.owner = template_node.get_owner()
-		template_node = node
 
 func _on_child_existing(node: Node3D):
 	if node == template_node:
@@ -58,8 +53,8 @@ func update_repeat(prop: String):
 func clear_children():
 	# Clear existing children except the template node
 	for child in get_children(true):
-		if child == template_node: continue
-		child.queue_free()
+		if child == template_node || child.is_inside_tree(): continue
+		child.queue_free() # free repeated ndoes
 
 func repeat_template():
 	clear_children()
