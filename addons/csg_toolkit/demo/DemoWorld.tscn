@@ -13,3 +13,19 @@ spacing = Vector3(1, 1, 0)
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="CSGRepeater3D"]
 
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGRepeater3D/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.4, 0)
+size = Vector3(1.5, 1.8, 1)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGRepeater3D/CSGCombiner3D/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+operation = 2
+size = Vector3(1, 1.2, 1)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGRepeater3D/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.4, 0)
+radius = 0.2
+height = 1.6
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="CSGRepeater3D/CSGCombiner3D/CSGCylinder3D"]
+operation = 2
+radius = 0.3

@@ -49,7 +49,7 @@ func _on_torus_pressed():
 
 # Operation Toggle
 func _on_operation_pressed(val):
-	self.operation_changed.emit(val)
+	set_operation(val)
 
 
 func _on_config_pressed():
