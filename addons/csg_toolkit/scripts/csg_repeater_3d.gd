@@ -7,10 +7,7 @@ var _template_node: CSGShape3D
 	set(value):
 		_template_node = value
 		notify_property_list_changed()
-		if value:
-			repeat_template()
-		else: 
-			clear_children()
+		repeat_template()
 
 var _repeat: Vector3 = Vector3.ONE
 @export var repeat := Vector3.ONE:
@@ -38,14 +35,13 @@ func _enter_tree():
 
 func _on_child_entered(node: CSGShape3D):
 	if not template_node:
+		print("set template", node)
 		template_node = node
 
 func _on_child_existing(node: Node3D):
 	if node == template_node:
-		call_deferred("_clear_template", node)
-
-func _clear_template(node):
-	template_node = null
+		print("removed template")
+		template_node = null
 
 func _exit_tree():
 	child_entered_tree.disconnect(_on_child_entered)
@@ -60,14 +56,14 @@ func clear_children():
 	# Clear existing children except the template node
 	for child in get_children(true):
 		if child == template_node: continue
-		call_deferred("remove_child", child)
-		child.call_deferred("queue_free")
+		child.queue_free()
 
 func repeat_template():
+	print("repeat")
+	clear_children()
 	if not template_node:
 		print("No Template found")
 		return
-	clear_children()
 	# Clone and position the template node based on repeat and spacing
 	for x in range(int(_repeat.x)):
 		for y in range(int(_repeat.y)):
