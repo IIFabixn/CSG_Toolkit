@@ -28,6 +28,7 @@ var _spacing: Vector3 = Vector3.ZERO
 		repeat_template()
 
 func _enter_tree():
+	if not Engine.is_editor_hint(): return
 	if not child_entered_tree.is_connected(_on_child_entered):
 		child_entered_tree.connect(_on_child_entered)
 	if not child_exiting_tree.is_connected(_on_child_existing):
@@ -44,6 +45,7 @@ func _on_child_existing(node: Node3D):
 		template_node = null
 
 func _exit_tree():
+	if not Engine.is_editor_hint(): return
 	child_entered_tree.disconnect(_on_child_entered)
 	child_exiting_tree.disconnect(_on_child_existing)
 	EditorInterface.get_inspector().property_edited.disconnect(update_repeat)

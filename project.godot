@@ -14,7 +14,6 @@ config/name="New Game Project"
 run/main_scene="res://addons/csg_toolkit/demo/DemoWorld.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/show_image=false
-config/icon="res://icon.svg"
 
 [autoload]
 
