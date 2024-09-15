@@ -18,6 +18,7 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ixko7"]
 
 [node name="CsgToolkitBar" type="Control"]
+visible = false
 custom_minimum_size = Vector2(52, 0)
 layout_mode = 3
 anchors_preset = 9
@@ -41,6 +42,7 @@ layout_mode = 2
 horizontal_scroll_mode = 0
 
 [node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
+custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 3

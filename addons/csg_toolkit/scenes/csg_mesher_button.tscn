@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://mur5knd6pi2n"]
+
+[ext_resource type="Script" path="res://addons/csg_toolkit/scripts/csg_mesher_button.gd" id="1_bvkd5"]
+
+[node name="CsgMesherButton" type="Button"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Convert to Mesh"
+script = ExtResource("1_bvkd5")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
