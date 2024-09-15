@@ -19,7 +19,7 @@ func _enter_tree():
 	
 func save_config():
 	var config = ConfigFile.new()
-	config.load("res://addons/CSG_Toolkit/csg_toolkit_config.cfg")
+	config.load("res://addons/csg_toolkit/csg_toolkit_config.cfg")
 	config.set_value(CSG_TOOLKIT, DEFAULT_BEHAVIOR, default_behavior)
 	config.set_value(CSG_TOOLKIT, ACTION_KEY, action_key)
 	config.set_value(CSG_TOOLKIT, AUTO_HIDE, auto_hide)
@@ -29,7 +29,7 @@ func save_config():
 
 func load_config():
 	var config = ConfigFile.new()
-	if config.load("res://addons/CSG_Toolkit/csg_toolkit_config.cfg") == OK:
+	if config.load("res://addons/csg_toolkit/csg_toolkit_config.cfg") == OK:
 		default_behavior = config.get_value(CSG_TOOLKIT, DEFAULT_BEHAVIOR, default_behavior)
 		action_key = config.get_value(CSG_TOOLKIT, ACTION_KEY, action_key)
 		auto_hide = config.get_value(CSG_TOOLKIT, AUTO_HIDE, auto_hide)
