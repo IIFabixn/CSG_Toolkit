@@ -11,7 +11,8 @@ A godot plugin that will hopefully help you build quickler blockouts.
 * <b>Operation Preset:</b> Easily switch between different CSG operations.
 * <b>Material Picker:</b> Quickly apply materials to CSG nodes.
 * <b>Shortcut Integration:</b> Shortcuts are available when the selcted node is a CSG node.
-* <b>CSG-Repeater:</b> A new Node that will repeat his first child node in given direction and set spacing.
+* <b>CSG-Repeater:</b> This Node will repeat a selected Node in given direction and set spacing.
+* <b>CSG-Spreader:</b> This Node will spread a selected Node around it.
 
 ## Planned Features
 * <b>Additional Shapes:</b> Introducing new shapes to expand your design possibilities and enhance your creative flexibility.
