@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="New Game Project"
+config/name="CSG_Toolkit"
 run/main_scene="res://addons/csg_toolkit/demo/DemoWorld.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 boot_splash/show_image=false

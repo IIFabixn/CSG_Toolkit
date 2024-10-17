@@ -135,7 +135,6 @@ func create_csg(type: Variant):
 
 
 	if (selected_node.get_owner() == null):
-		print("Selected Node has no owner")
 		return
 
 	if Input.is_key_pressed(config.action_key):
