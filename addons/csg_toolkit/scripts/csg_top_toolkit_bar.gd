@@ -1,5 +1,5 @@
 @tool
-class_name CSGForceUpdateButton extends Button
+class_name CSGTopToolkitBar extends Control
 
 func _enter_tree():
 	EditorInterface.get_selection().selection_changed.connect(_on_selection_changed)
@@ -17,7 +17,7 @@ func _on_selection_changed():
 	else:
 		hide()
 
-func _on_pressed():
+func _on_refresh_pressed():
 	var selection = EditorInterface.get_selection().get_selected_nodes()
 	if (selection.is_empty()):
 		return
@@ -25,3 +25,10 @@ func _on_pressed():
 		selection[0].call("repeat_template")
 	elif selection[0] is CSGSpreader3D:
 		selection[0].call("spread_template")
+
+func _on_apply_pressed():
+	var selection = EditorInterface.get_selection().get_selected_nodes()
+	if (selection.is_empty()):
+		return
+	if selection[0] is CSGRepeater3D or selection[0] is CSGSpreader3D:
+			selection[0].call("apply_template")

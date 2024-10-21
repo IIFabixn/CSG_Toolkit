@@ -86,3 +86,8 @@ func spread_template():
 			if allow_rotation:
 				instance.transform.basis = Basis().rotated(Vector3(0, 1, 0), rng.randf_range(0, 2 * PI))
 			add_child(instance)
+
+func apply_template():
+	for child in get_children():
+		if child.has_meta(SPREADER_NODE_META):
+			child.owner = owner

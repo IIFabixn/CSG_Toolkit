@@ -1,5 +1,5 @@
 @tool
-class_name CSGToolkitBar extends Control
+class_name CSGSideToolkitBar extends Control
 
 @onready var config: CsgTkConfig:
 	get:
@@ -9,7 +9,7 @@ var operation: CSGShape3D.Operation = CSGShape3D.OPERATION_UNION
 var selected_material: BaseMaterial3D
 var selected_shader: ShaderMaterial
 
-@onready var picker_button: Button = $MarginContainer/ScrollContainer/HBoxContainer/Material/MaterialPicker
+@onready var picker_button: Button = $ScrollContainer/HBoxContainer/Material/MaterialPicker
 
 func _enter_tree():
 	EditorInterface.get_selection().selection_changed.connect(_on_selection_changed)
@@ -19,6 +19,7 @@ func _exit_tree():
 
 func _on_selection_changed():
 	if not config.auto_hide:
+		print("not hiding")
 		return
 	var selection = EditorInterface.get_selection().get_selected_nodes()
 	if selection.any(func (node): return node is CSGShape3D):
@@ -50,7 +51,6 @@ func _on_torus_pressed():
 # Operation Toggle
 func _on_operation_pressed(val):
 	set_operation(val)
-
 
 func _on_config_pressed():
 	var config_view_scene = preload("res://addons/csg_toolkit/scenes/config_window.tscn")
@@ -160,3 +160,7 @@ func _add_as_sibling(selected_node: CSGShape3D, csg: CSGShape3D):
 	selected_node.get_parent().add_child(csg, true)
 	csg.owner = selected_node.get_owner()
 	csg.global_position = selected_node.global_position
+
+
+func _on_material_picker_pressed() -> void:
+	pass # Replace with function body.

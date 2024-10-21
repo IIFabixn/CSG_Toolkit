@@ -62,3 +62,9 @@ func repeat_template():
 				instance.transform.origin = position
 				# Add the instance to the combiner
 				add_child(instance)
+
+func apply_template():
+	print("apply repeat")
+	for child in get_children():
+		if child.has_meta(REPEATER_NODE_META):
+			child.owner = owner
